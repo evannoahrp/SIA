@@ -1,5 +1,6 @@
 package com.example.sia;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,21 +11,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Calendar;
+import java.util.StringTokenizer;
 
 public class BiodataDosen extends AppCompatActivity {
 
-    TextView textKodePegawai,textNamaPegawai,textJenisKelamin;
+    TextView textKodePegawai,textNamaPegawai,textJenisKelamin, textTanggalLahir;
 
-    EditText textGelarDepan, textGelarBelakang, textNik,
-            textNpwp, textAlamatSkr, textTelpRumah, textNoHp1, textEmail1, textTempatLahir,
-            textTanggalLahir, textStatusKeluar, textStatusPegawai,
-            textNidn, textAlamatKtp, textEmail2, textNoHp2;
+    EditText textGelarDepan, textGelarBelakang, textNik, textNpwp, textAlamatSkr,
+            textTelpRumah, textNoHp1, textEmail1, textTempatLahir, textStatusKeluar,
+            textStatusPegawai, textNidn, textAlamatKtp, textEmail2, textNoHp2;
 
     Button button_tgl, button_ubah;
-
-    Calendar c;
 
     DatePickerDialog dpd;
 
@@ -56,28 +53,10 @@ public class BiodataDosen extends AppCompatActivity {
         button_tgl = findViewById(R.id.button_tgl);
         button_ubah = findViewById(R.id.button_ubah);
 
-        button_tgl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                c = Calendar.getInstance();
-                int day = c.get(Calendar.DAY_OF_MONTH);
-                int month = c.get(Calendar.MONTH);
-                int year = c.get(Calendar.YEAR);
-
-                dpd = new DatePickerDialog(BiodataDosen.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textTanggalLahir.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, year, month, day);
-                dpd.show();
-            }
-        });
-
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
+        assert extras != null;
         String mKodePgw = extras.getString("kode_pegawai");
         textKodePegawai.setText(mKodePgw);
 
@@ -113,6 +92,26 @@ public class BiodataDosen extends AppCompatActivity {
 
         String mTglLahir = extras.getString("tgl_lahir");
         textTanggalLahir.setText(mTglLahir);
+
+        StringTokenizer st = new StringTokenizer(mTglLahir, "-");
+        final int year = Integer.parseInt(st.nextToken());
+        final int month = Integer.parseInt(st.nextToken());
+        final int day = Integer.parseInt(st.nextToken());
+
+        button_tgl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dpd = new DatePickerDialog(BiodataDosen.this, new DatePickerDialog.OnDateSetListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textTanggalLahir.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, year, month, day);
+                dpd.show();
+            }
+        });
 
         String mKodeSex = extras.getString("kode_sex");
         textJenisKelamin.setText(mKodeSex);
