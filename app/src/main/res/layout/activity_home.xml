@@ -9,14 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="24sp"
-            android:text="SELAMAT DATANG"/>
+            android:text="@string/selamat_datang"/>
 
         <TextView
             android:id="@+id/tvResultUser"
@@ -39,23 +40,20 @@
             android:id="@+id/btnBiodata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="biodata"
-            android:layout_alignParentBottom="true"/>
+            android:text="@string/biodata" />
 
         <Button
             android:id="@+id/btnUbahPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ubah password"
-            android:layout_alignParentBottom="true"/>
+            android:text="@string/ubah_password" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="log out"
-            android:layout_alignParentBottom="true"/>
+            android:text="@string/log_out" />
     </LinearLayout>
 
 

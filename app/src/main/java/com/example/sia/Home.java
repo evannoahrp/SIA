@@ -44,11 +44,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        kode_pegawai = (TextView) findViewById(R.id.tvResultKode);
-        tvResultUser = (TextView) findViewById(R.id.tvResultUser);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnBiodata = (Button) findViewById(R.id.btnBiodata);
-        btnUbahPassword = (Button) findViewById(R.id.btnUbahPassword);
+        kode_pegawai = findViewById(R.id.tvResultKode);
+        tvResultUser = findViewById(R.id.tvResultUser);
+        btnLogout = findViewById(R.id.btnLogout);
+        btnBiodata = findViewById(R.id.btnBiodata);
+        btnUbahPassword = findViewById(R.id.btnUbahPassword);
 
         mContext = this;
 
@@ -86,7 +86,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                        sharedPrefManager.saveSPBoolean(false);
                         startActivity(new Intent(Home.this, Login.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();
@@ -112,6 +112,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 if (response.isSuccessful()) {
                     loading.dismiss();
                     try {
+                        assert response.body() != null;
                         JSONObject jsonResults = new JSONObject(response.body().string());
                         if (jsonResults.getString("error").equals("false")) {
 
@@ -167,9 +168,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                             String error_msg = jsonResults.getString("error_msg");
                             Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
                 }

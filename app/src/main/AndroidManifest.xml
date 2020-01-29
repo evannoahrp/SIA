@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sia">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,8 +12,11 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".UbahPassword"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="m"
+        android:fullBackupContent="@xml/backup_descriptor">
+        <activity android:name=".UbahPassword" />
         <activity android:name=".BiodataDosen" />
         <activity android:name=".Login">
             <intent-filter>

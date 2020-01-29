@@ -18,7 +18,7 @@
             android:id="@+id/KodePegawai"
             android:layout_width="105dp"
             android:layout_height="43dp"
-            android:text="Kode Pegawai" />
+            android:text="@string/kode_pegawai" />
 
         <TextView
             android:id="@+id/textKodePegawai"
@@ -27,11 +27,12 @@
             android:layout_marginStart="13dp"
             android:layout_toEndOf="@+id/KodePegawai"
             android:ems="10"
-            android:hint="Kode Pegawai"
-            android:textSize="18dp"
+            android:hint="@string/kode_pegawai"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/KodePegawai"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/KodePegawai" />
+            android:layout_toRightOf="@+id/KodePegawai"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/namaPegawai"
@@ -39,7 +40,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/KodePegawai"
             android:layout_marginTop="12dp"
-            android:text="Nama Pegawai" />
+            android:text="@string/nama_pegawai" />
 
         <TextView
             android:id="@+id/textNamaPegawai"
@@ -50,11 +51,12 @@
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/namaPegawai"
             android:ems="10"
-            android:hint="Nama Pegawai"
-            android:textSize="18dp"
+            android:hint="@string/nama_pegawai"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/namaPegawai"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/namaPegawai" />
+            android:layout_toRightOf="@+id/namaPegawai"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/gelarDepan"
@@ -62,7 +64,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/namaPegawai"
             android:layout_marginTop="10dp"
-            android:text="Gelar Depan" />
+            android:text="@string/gelar_depan" />
 
         <EditText
             android:id="@+id/textGelarDepan"
@@ -76,7 +78,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/gelarDepan"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/gelarDepan" />
+            android:layout_toRightOf="@+id/gelarDepan"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor,RtlHardcoded" />
 
         <TextView
             android:id="@+id/gelarBelakang"
@@ -84,7 +88,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/gelarDepan"
             android:layout_marginTop="10dp"
-            android:text="Gelar Belakang" />
+            android:text="@string/gelar_belakang" />
 
         <EditText
             android:id="@+id/textGelarBelakang"
@@ -98,7 +102,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/gelarBelakang"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/gelarBelakang" />
+            android:layout_toRightOf="@+id/gelarBelakang"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/nik"
@@ -106,7 +112,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/gelarBelakang"
             android:layout_marginTop="10dp"
-            android:text="NIK" />
+            android:text="@string/nik" />
 
         <EditText
             android:id="@+id/textNik"
@@ -120,7 +126,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/nik"
             android:layout_toRightOf="@+id/nik"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/fileNik"
@@ -128,7 +136,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/nik"
             android:layout_marginTop="10dp"
-            android:text="File NIK" />
+            android:text="@string/file_nik" />
 
         <EditText
             android:id="@+id/textFileNik"
@@ -142,7 +150,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/fileNik"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/fileNik" />
+            android:layout_toRightOf="@+id/fileNik"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/npwp"
@@ -150,7 +160,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/fileNik"
             android:layout_marginTop="10dp"
-            android:text="NPWP" />
+            android:text="@string/npwp" />
 
         <EditText
             android:id="@+id/textNpwp"
@@ -164,7 +174,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/npwp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/npwp" />
+            android:layout_toRightOf="@+id/npwp"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor,RtlHardcoded" />
 
         <TextView
             android:id="@+id/fileNpwp"
@@ -172,7 +184,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/npwp"
             android:layout_marginTop="10dp"
-            android:text="File NPWP" />
+            android:text="@string/file_npwp" />
 
         <EditText
             android:id="@+id/textFileNpwp"
@@ -186,7 +198,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/fileNpwp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/fileNpwp" />
+            android:layout_toRightOf="@+id/fileNpwp"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/alamatSkr"
@@ -194,7 +208,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/fileNpwp"
             android:layout_marginTop="10dp"
-            android:text="Alamat Sekarang" />
+            android:text="@string/alamat_sekarang" />
 
         <EditText
             android:id="@+id/textAlamatSkr"
@@ -208,7 +222,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/alamatSkr"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/alamatSkr" />
+            android:layout_toRightOf="@+id/alamatSkr"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/telpRumah"
@@ -216,7 +232,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/alamatSkr"
             android:layout_marginTop="10dp"
-            android:text="Telp. Rumah" />
+            android:text="@string/telp_rumah" />
 
         <EditText
             android:id="@+id/textTelpRumah"
@@ -230,7 +246,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/telpRumah"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/telpRumah" />
+            android:layout_toRightOf="@+id/telpRumah"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/noHp1"
@@ -238,7 +256,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/telpRumah"
             android:layout_marginTop="10dp"
-            android:text="No. Hp 1" />
+            android:text="@string/no_hp_1" />
 
         <EditText
             android:id="@+id/textNoHp1"
@@ -252,7 +270,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/noHp1"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/noHp1" />
+            android:layout_toRightOf="@+id/noHp1"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/email1"
@@ -260,7 +280,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/noHp1"
             android:layout_marginTop="10dp"
-            android:text="E-mail 1" />
+            android:text="@string/e_mail_1" />
 
         <EditText
             android:id="@+id/textEmail1"
@@ -274,7 +294,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/email1"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/email1" />
+            android:layout_toRightOf="@+id/email1"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/tempatLahir"
@@ -282,7 +304,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/email1"
             android:layout_marginTop="10dp"
-            android:text="Tempat Lahir" />
+            android:text="@string/tempat_lahir" />
 
         <EditText
             android:id="@+id/textTempatLahir"
@@ -296,7 +318,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/tempatLahir"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/tempatLahir" />
+            android:layout_toRightOf="@+id/tempatLahir"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/tanggalLahir"
@@ -304,7 +328,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/tempatLahir"
             android:layout_marginTop="10dp"
-            android:text="Tanggal Lahir" />
+            android:text="@string/tanggal_lahir" />
 
         <TextView
             android:id="@+id/textTanggalLahir"
@@ -315,11 +339,12 @@
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/tanggalLahir"
             android:ems="10"
-            android:hint="Tanggal Lahir"
-            android:textSize="18dp"
+            android:hint="@string/tanggal_lahir"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/tanggalLahir"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/tanggalLahir" />
+            android:layout_toRightOf="@+id/tanggalLahir"
+            tools:ignore="RtlHardcoded" />
 
         <Button
             android:id="@+id/button_tgl"
@@ -328,7 +353,8 @@
             android:layout_below="@id/textTempatLahir"
             android:layout_toEndOf="@+id/textTanggalLahir"
             app:layout_constraintStart_toEndOf="@+id/textTanggalLahir"
-            android:layout_toRightOf="@+id/textTanggalLahir"/>
+            android:layout_toRightOf="@+id/textTanggalLahir"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/jenisKelamin"
@@ -336,7 +362,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/tanggalLahir"
             android:layout_marginTop="10dp"
-            android:text="Jenis Kelamin" />
+            android:text="@string/jenis_kelamin" />
 
         <TextView
             android:id="@+id/textJenisKelamin"
@@ -347,11 +373,12 @@
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/jenisKelamin"
             android:ems="10"
-            android:hint="Kode sex"
-            android:textSize="18dp"
+            android:hint="@string/jenis_kelamin"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/jenisKelamin"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/jenisKelamin" />
+            android:layout_toRightOf="@+id/jenisKelamin"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/statusKeluar"
@@ -359,7 +386,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/jenisKelamin"
             android:layout_marginTop="10dp"
-            android:text="Status Keluar" />
+            android:text="@string/status_keluar" />
 
         <EditText
             android:id="@+id/textStatusKeluar"
@@ -373,7 +400,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/statusKeluar"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/statusKeluar" />
+            android:layout_toRightOf="@+id/statusKeluar"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/statusPegawai"
@@ -381,7 +410,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/statusKeluar"
             android:layout_marginTop="10dp"
-            android:text="Status Pegawai" />
+            android:text="@string/status_pegawai" />
 
         <EditText
             android:id="@+id/textStatusPegawai"
@@ -395,7 +424,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/statusPegawai"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/statusPegawai" />
+            android:layout_toRightOf="@+id/statusPegawai"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/nidn"
@@ -403,7 +434,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/statusPegawai"
             android:layout_marginTop="10dp"
-            android:text="NIDN" />
+            android:text="@string/nidn" />
 
         <EditText
             android:id="@+id/textNidn"
@@ -417,7 +448,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/nidn"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/nidn" />
+            android:layout_toRightOf="@+id/nidn"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/alamatKtp"
@@ -425,7 +458,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/nidn"
             android:layout_marginTop="10dp"
-            android:text="Alamat KTP" />
+            android:text="@string/alamat_ktp" />
 
         <EditText
             android:id="@+id/textAlamatKtp"
@@ -439,7 +472,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/alamatKtp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/alamatKtp" />
+            android:layout_toRightOf="@+id/alamatKtp"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/email2"
@@ -447,7 +482,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/alamatKtp"
             android:layout_marginTop="10dp"
-            android:text="E-mail 2" />
+            android:text="@string/e_mail_2" />
 
         <EditText
             android:id="@+id/textEmail2"
@@ -461,7 +496,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/alamatKtp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/email2" />
+            android:layout_toRightOf="@+id/email2"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/noHp2"
@@ -469,7 +506,7 @@
             android:layout_height="43dp"
             android:layout_below="@+id/email2"
             android:layout_marginTop="10dp"
-            android:text="No. Hp 2" />
+            android:text="@string/no_hp_2" />
 
         <EditText
             android:id="@+id/textNoHp2"
@@ -483,7 +520,9 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/email2"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/noHp2" />
+            android:layout_toRightOf="@+id/noHp2"
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/button_ubah"
@@ -493,9 +532,10 @@
             android:layout_marginStart="130dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/gelarBelakang"
-            android:text="Ubah"
+            android:text="@string/ubah"
             android:layout_marginLeft="130dp"
-            android:layout_toRightOf="@+id/gelarBelakang" />
+            android:layout_toRightOf="@+id/gelarBelakang"
+            tools:ignore="RtlHardcoded" />
 
     </RelativeLayout>
 </ScrollView>

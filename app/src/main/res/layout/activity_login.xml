@@ -19,30 +19,34 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:visibility="visible"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/logo"
+            android:contentDescription="@string/logo" />
 
         <EditText
             android:id="@+id/txtUser"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="User"
+            android:hint="@string/user"
             android:textColorHint="#80000000"
             android:padding="8dp"
             android:background="@drawable/bg_rectangle_edittext"
-            android:textColor="#80000000"/>
+            android:textColor="#80000000"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/txtPassword"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:textColorHint="#80000000"
             android:inputType="textPassword"
             android:padding="8dp"
             android:background="@drawable/bg_rectangle_edittext"
-            android:textColor="#80000000"/>
+            android:textColor="#80000000"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -50,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFF"
-            android:text="LOG IN"
+            android:text="@string/log_in"
             android:background="@drawable/bg_rectangle_button"/>
 
     </LinearLayout>
