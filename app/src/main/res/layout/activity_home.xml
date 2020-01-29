@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:text="SELAMAT DATANG"/>
+
+        <TextView
+            android:id="@+id/tvResultUser"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvResultKode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btnBiodata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="biodata"
+            android:layout_alignParentBottom="true"/>
+
+        <Button
+            android:id="@+id/btnUbahPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ubah password"
+            android:layout_alignParentBottom="true"/>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="log out"
+            android:layout_alignParentBottom="true"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
