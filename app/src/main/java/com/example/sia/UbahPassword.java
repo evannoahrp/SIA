@@ -27,8 +27,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UbahPassword extends AppCompatActivity {
+
     TextView txtUser;
+
     EditText txtPassLama, txtPassBaru, txtKonfirmasiPass;
+
     Button btnUbahPass;
 
     SharedPrefManager sharedPrefManager;
@@ -36,7 +39,9 @@ public class UbahPassword extends AppCompatActivity {
     String mKode;
 
     Context mContext;
+
     ProgressDialog loading;
+
     BaseApiService mApiService;
 
     @Override

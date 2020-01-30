@@ -28,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Home extends AppCompatActivity implements View.OnClickListener {
+
     TextView kode_pegawai, tvResultUser;
 
     Button btnLogout, btnBiodata, btnUbahPassword;
@@ -35,6 +36,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     SharedPrefManager sharedPrefManager;
 
     BaseApiService mApiService;
+
     Context mContext;
 
     ProgressDialog loading;

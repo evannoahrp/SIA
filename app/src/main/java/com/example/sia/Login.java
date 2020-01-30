@@ -26,12 +26,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
+
     EditText txtUser;
+
     EditText txtPassword;
+
     Button btnLogin;
+
     ProgressDialog loading;
 
     Context mContext;
+
     BaseApiService mApiService;
 
     SharedPrefManager sharedPrefManager;

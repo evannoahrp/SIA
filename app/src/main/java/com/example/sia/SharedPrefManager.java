@@ -15,6 +15,7 @@ class SharedPrefManager {
     private static final String SP_SUDAH_LOGIN = "spSudahLogin";
 
     private SharedPreferences sp;
+
     private SharedPreferences.Editor spEditor;
 
     @SuppressLint("CommitPrefEdits")
