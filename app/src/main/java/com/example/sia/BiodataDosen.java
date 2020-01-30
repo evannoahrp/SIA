@@ -95,7 +95,7 @@ public class BiodataDosen extends AppCompatActivity {
 
         StringTokenizer st = new StringTokenizer(mTglLahir, "-");
         final int year = Integer.parseInt(st.nextToken());
-        final int month = Integer.parseInt(st.nextToken());
+        final int month = Integer.parseInt(st.nextToken()) - 1;
         final int day = Integer.parseInt(st.nextToken());
 
         button_tgl.setOnClickListener(new View.OnClickListener() {
