@@ -36,8 +36,6 @@ public class UbahPassword extends AppCompatActivity {
 
     SharedPrefManager sharedPrefManager;
 
-    String mKode;
-
     Context mContext;
 
     ProgressDialog loading;
@@ -57,7 +55,6 @@ public class UbahPassword extends AppCompatActivity {
 
         sharedPrefManager = new SharedPrefManager(this);
         txtUser.setText(sharedPrefManager.getSPUser());
-        mKode = sharedPrefManager.getSPKode();
 
         mContext = this;
         mApiService = UtilsApi.getAPIService();
@@ -72,7 +69,7 @@ public class UbahPassword extends AppCompatActivity {
     }
 
     private void ubahPassword() {
-        mApiService.ubahPassRequest(mKode, txtPassLama.getText().toString(), txtPassBaru.getText().toString(),
+        mApiService.ubahPassRequest(txtUser.getText().toString(), txtPassLama.getText().toString(), txtPassBaru.getText().toString(),
                 txtKonfirmasiPass.getText().toString()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -83,8 +80,8 @@ public class UbahPassword extends AppCompatActivity {
                         JSONObject jsonResults = new JSONObject(response.body().string());
                         if (jsonResults.getString("error").equals("false")) {
 
-                            String pesan = jsonResults.getString("message");
-                            Toast.makeText(mContext, pesan, Toast.LENGTH_SHORT).show();
+                            String message = jsonResults.getString("message");
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
 
                             startActivity(new Intent(mContext, Home.class)
                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));

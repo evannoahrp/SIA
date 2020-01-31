@@ -14,7 +14,6 @@ public interface BaseApiService {
     Call<ResponseBody> loginRequest(@Field("user") String user,
                                     @Field("password") String password);
 
-
     // Fungsi untuk memanggil API http://localhost/sia/UbahPassword.php
     @FormUrlEncoded
     @POST("UbahPassword.php")
