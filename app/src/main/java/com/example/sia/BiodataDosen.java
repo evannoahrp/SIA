@@ -2,16 +2,32 @@ package com.example.sia;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.sia.apihelper.BaseApiService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.StringTokenizer;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BiodataDosen extends AppCompatActivity {
 
@@ -23,7 +39,13 @@ public class BiodataDosen extends AppCompatActivity {
 
     Button button_tgl, button_ubah;
 
+    Context mContext;
+
+    ProgressDialog loading;
+
     DatePickerDialog dpd;
+
+    BaseApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,5 +156,57 @@ public class BiodataDosen extends AppCompatActivity {
         String mNoHp2 = extras.getString("no_hp2");
         textNoHp2.setText(mNoHp2);
 
+        button_ubah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
+                ubahBiodata();
+            }
+        });
+    }
+
+    private void ubahBiodata(){
+        mApiService.ubahbiodataRequest(textKodePegawai.getText().toString(),
+                textGelarDepan.getText().toString(), textGelarBelakang.getText().toString(),
+                textNik.getText().toString(), textNpwp.getText().toString(),
+                textAlamatSkr.getText().toString(), textTelpRumah.getText().toString(),
+                textNoHp1.getText().toString(), textEmail1.getText().toString(),
+                textTempatLahir.getText().toString(), textTanggalLahir.getText().toString(),
+                textStatusKeluar.getText().toString(), textStatusPegawai.getText().toString(),
+                textNidn.getText().toString(), textAlamatKtp.getText().toString(),
+                textEmail2.getText().toString(), textNoHp2.getText().toString()
+        ).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    loading.dismiss();
+                    try {
+                        assert response.body() != null;
+                        JSONObject jsonResults = new JSONObject(response.body().string());
+                        if (jsonResults.getString("error").equals("false")) {
+
+                            String message = jsonResults.getString("message");
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+
+                            startActivity(new Intent(mContext, Home.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            finish();
+                        } else {
+                            // jika gagal ubah password
+                            String error_msg = jsonResults.getString("error_msg");
+                            Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("debug", "onFailure: ERROR > " + t.toString());
+                loading.dismiss();
+            }
+        });
     }
 }

@@ -26,4 +26,30 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("Biodata.php")
     Call<ResponseBody> biodataRequest(@Field("kode_pegawai") String kode_pegawai);
+
+    // Fungsi untuk memanggil API http://localhost/sia/UbahBiodata.php
+    @FormUrlEncoded
+    @POST("UbahBiodata.php")
+    Call<ResponseBody> ubahbiodataRequest(@Field("kode_pegawai") String kode_pegawai,
+                                          @Field("glr_dpn") String glr_dpn,
+                                          @Field("glr_blk") String glr_blk,
+                                          @Field("nik") String nik,
+                                          @Field("npwp") String npwp,
+                                          @Field("alamat_skr") String alamat_skr,
+                                          @Field("telp_rumah") String telp_rumah,
+                                          @Field("no_hp1") String no_hp1,
+                                          @Field("email1") String email1,
+                                          @Field("tempat_lahir") String tempat_lahir,
+                                          @Field("tgl_lahir") String tgl_lahir,
+                                          @Field("kode_status_keluar") String kode_status_keluar,
+                                          @Field("kode_status_pegawai") String kode_status_pegawai,
+                                          @Field("nidn") String nidn,
+                                          @Field("alamat_ktp") String alamat_ktp,
+                                          @Field("email2") String email2,
+                                          @Field("no_hp2") String no_hp2);
+
+    // Fungsi untuk memanggil API http://localhost/sia/UbahBiodata.php
+    //@FormUrlEncoded
+    //@POST("UbahBiodata.php")
+    //Call<ResponseBody> UbahBioRequest()
 }
