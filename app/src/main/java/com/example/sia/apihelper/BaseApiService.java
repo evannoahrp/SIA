@@ -32,17 +32,17 @@ public interface BaseApiService {
     // Fungsi untuk memanggil API http://localhost/sia/TampilJenisKelamin.php
     @FormUrlEncoded
     @POST("TampilJenisKelamin.php")
-    Call<ResponseBody> tampilJenisKelaminRequest(@Field("kodeSex") String kodeSex);
+    Call<ResponseBody> tampilJenisKelaminRequest(@Field("kode_pegawai") String kode_pegawai);
 
     // Fungsi untuk memanggil API http://localhost/sia/TampilStatusKeluar.php
     @FormUrlEncoded
     @POST("TampilStatusKeluar.php")
-    Call<ResponseBody> tampilStatusKeluarRequest(@Field("kodeStatusKeluar") String kodeStatusKeluar);
+    Call<ResponseBody> tampilStatusKeluarRequest(@Field("kode_pegawai") String kode_pegawai);
 
     // Fungsi untuk memanggil API http://localhost/sia/TampilStatusPegawai.php
     @FormUrlEncoded
     @POST("TampilStatusPegawai.php")
-    Call<ResponseBody> tampilStatusPegawaiRequest(@Field("kodeStatusPegawai") String kodeStatusPegawai);
+    Call<ResponseBody> tampilStatusPegawaiRequest(@Field("kode_pegawai") String kode_pegawai);
 
     // Fungsi untuk memanggil API http://localhost/sia/UbahBiodata.php
     @FormUrlEncoded

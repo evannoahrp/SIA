@@ -130,13 +130,13 @@ public class BiodataDosen extends AppCompatActivity {
         });
 
         String mKodeSex = extras.getString("kodeSex");
-        ambilJenisKelamin(textJenisKelamin, mKodeSex);
+        ambilJenisKelamin(textJenisKelamin, mKodePgw);
         //textJenisKelamin.setText(mKodeSex);
         String mKodeStatusKeluar = extras.getString("kodeStatusKeluar");
-        ambilStatusKeluar(textStatusKeluar, mKodeStatusKeluar);
+        ambilStatusKeluar(textStatusKeluar, mKodePgw);
         //textStatusKeluar.setText(mKodeStatusKeluar);
         String mKodestatusPgw = extras.getString("kodeStatusPegawai");
-        ambilStatusPegawai(textStatusPegawai, mKodestatusPgw);
+        ambilStatusPegawai(textStatusPegawai, mKodePgw);
         //textStatusPegawai.setText(mKodestatusPgw);
         String mNidn = extras.getString("nidn");
         textNidn.setText(mNidn);
