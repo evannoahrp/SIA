@@ -28,15 +28,11 @@ import retrofit2.Response;
 public class Login extends AppCompatActivity {
 
     EditText txtUser;
-
     EditText txtPassword;
-
     Button btnLogin;
-
     ProgressDialog loading;
 
     Context mContext;
-
     BaseApiService mApiService;
 
     SharedPrefManager sharedPrefManager;
@@ -49,9 +45,9 @@ public class Login extends AppCompatActivity {
         mContext = this;
         mApiService = UtilsApi.getAPIService(); // meng-init yang ada di package apihelper
 
-        txtUser = findViewById(R.id.txtUser);
-        txtPassword = findViewById(R.id.txtPassword);
-        btnLogin = findViewById(R.id.btnLogin);
+        txtUser = (EditText) findViewById(R.id.txtUser);
+        txtPassword = (EditText) findViewById(R.id.txtPassword);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
 
         sharedPrefManager = new SharedPrefManager(this);
         // skip login jika user sudah login
@@ -79,7 +75,6 @@ public class Login extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             loading.dismiss();
                             try {
-                                assert response.body() != null;
                                 JSONObject jsonResults = new JSONObject(response.body().string());
                                 if (jsonResults.getString("error").equals("false")) {
                                     // jika login berhasil maka data nim yang ada di response API
@@ -91,8 +86,7 @@ public class Login extends AppCompatActivity {
                                     sharedPrefManager.saveSPString(SharedPrefManager.SP_KODE, mKode);
                                     sharedPrefManager.saveSPString(SharedPrefManager.SP_USER, mUser);
                                     // Shared Pref berfungsi untuk menjadi trigger session login
-                                    sharedPrefManager.saveSPBoolean(true);
-                                    Log.e("kodepagawai",sharedPrefManager.getSPKode());
+                                    sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
                                     startActivity(new Intent(mContext, Home.class)
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                                     finish();
@@ -105,7 +99,9 @@ public class Login extends AppCompatActivity {
                                     String error_msg = jsonResults.getString("error_msg");
                                     Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
                                 }
-                            } catch (JSONException | IOException e) {
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }

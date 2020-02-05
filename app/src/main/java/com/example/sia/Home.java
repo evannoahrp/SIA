@@ -29,16 +29,14 @@ import retrofit2.Response;
 
 public class Home extends AppCompatActivity implements View.OnClickListener {
 
-    TextView kode_pegawai, tvResultUser;
+    TextView tvResultKode, tvResultUser;
 
     Button btnLogout, btnBiodata, btnUbahPassword;
 
-    SharedPrefManager sharedPrefManager;
-
+    Context mContext;
     BaseApiService mApiService;
 
-    Context mContext;
-
+    SharedPrefManager sharedPrefManager;
     ProgressDialog loading;
 
     @Override
@@ -46,30 +44,38 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        kode_pegawai = findViewById(R.id.tvResultKode);
-        tvResultUser = findViewById(R.id.tvResultUser);
-        btnLogout = findViewById(R.id.btnLogout);
-        btnBiodata = findViewById(R.id.btnBiodata);
-        btnUbahPassword = findViewById(R.id.btnUbahPassword);
-
-        mContext = this;
-
-        mApiService = UtilsApi.getAPIService();
+        tvResultKode = (TextView) findViewById(R.id.tvResultKode);
+        tvResultUser = (TextView) findViewById(R.id.tvResultUser);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnBiodata = (Button) findViewById(R.id.btnBiodata);
+        btnUbahPassword = (Button) findViewById(R.id.btnUbahPassword);
 
         sharedPrefManager = new SharedPrefManager(this);
-        kode_pegawai.setText(sharedPrefManager.getSPKode());
-        tvResultUser.setText(sharedPrefManager.getSPUser());
+        tvResultKode.setText(sharedPrefManager.getSPKode());
+        tvResultUser.setText(sharedPrefManager.getSpUser());
+
+        mContext = this;
+        mApiService = UtilsApi.getAPIService();
 
         btnLogout.setOnClickListener(this);
         btnBiodata.setOnClickListener(this);
         btnUbahPassword.setOnClickListener(this);
+
+        /*btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                konfirmasiLogout();
+            }
+        });*/
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnBiodata) {
             loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
-            getBiodata();
+            requestTampilBiodata();
+            //Intent intent = new Intent(this, BiodataDosen.class);
+            //startActivity(intent);
         }
         if (v == btnLogout) {
             konfirmasiLogout();
@@ -88,7 +94,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sharedPrefManager.saveSPBoolean(false);
+                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
                         startActivity(new Intent(Home.this, Login.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();
@@ -107,70 +113,93 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         alertDialog.show();
     }
 
-    private void getBiodata() {
-        mApiService.biodataRequest(sharedPrefManager.getSPKode()).enqueue(new Callback<ResponseBody>() {
+    private void requestTampilBiodata() {
+        mApiService.tampilBiodataRequest(sharedPrefManager.getSPKode()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     loading.dismiss();
                     try {
                         assert response.body() != null;
-                        JSONObject jsonResults = new JSONObject(response.body().string());
-                        if (jsonResults.getString("error").equals("false")) {
+                        JSONObject jsonResult = new JSONObject(response.body().string());
+                        if (jsonResult.getString("error").equals("false")) {
 
                             Intent intent = new Intent(mContext, BiodataDosen.class);
                             Bundle extras = new Bundle();
 
-                            String mKodePgw = kode_pegawai.getText().toString();
-                            String mNamaPgw = jsonResults.getJSONObject("biodata").getString("nama_pegawai");
-                            String mGlrDpn = jsonResults.getJSONObject("biodata").getString("glr_dpn");
-                            String mGlrBlk = jsonResults.getJSONObject("biodata").getString("glr_blk");
-                            String mNik = jsonResults.getJSONObject("biodata").getString("nik");
-                            String mNpwp = jsonResults.getJSONObject("biodata").getString("npwp");
-                            String mAlamatSkr = jsonResults.getJSONObject("biodata").getString("alamat_skr");
-                            String mTelpRumah = jsonResults.getJSONObject("biodata").getString("telp_rumah");
-                            String mNoHp1 = jsonResults.getJSONObject("biodata").getString("no_hp1");
-                            String mEmail1 = jsonResults.getJSONObject("biodata").getString("email1");
-                            String mTempatLahir = jsonResults.getJSONObject("biodata").getString("tempat_lahir");
-                            String mTglLahir = jsonResults.getJSONObject("biodata").getString("tgl_lahir");
-                            String mKodeSex = jsonResults.getJSONObject("biodata").getString("kode_sex");
-                            String mKodeStatusKeluar = jsonResults.getJSONObject("biodata").getString("kode_status_keluar");
-                            String mKodeStatusPegawai = jsonResults.getJSONObject("biodata").getString("kode_status_pegawai");
-                            String nNidn = jsonResults.getJSONObject("biodata").getString("nidn");
-                            String mAlamatKtp = jsonResults.getJSONObject("biodata").getString("alamat_ktp");
-                            String mEmail2 = jsonResults.getJSONObject("biodata").getString("email2");
-                            String mNoHp2 = jsonResults.getJSONObject("biodata").getString("no_hp2");
+                            String mKodePgw = jsonResult.getJSONObject("dosen").getString("kode_pegawai");
+                            extras.putString("kodePgw", mKodePgw);
 
-                            extras.putString("kode_pegawai", mKodePgw);
-                            extras.putString("nama_pegawai", mNamaPgw);
-                            extras.putString("glr_dpn", mGlrDpn);
-                            extras.putString("glr_blk", mGlrBlk);
+                            String mNamaPgw = jsonResult.getJSONObject("dosen").getString("nama_pegawai");
+                            extras.putString("namaPgw", mNamaPgw);
+
+                            String mGlrDpn = jsonResult.getJSONObject("dosen").getString("glr_dpn");
+                            extras.putString("glrDpn", mGlrDpn);
+
+                            String mGlrBlk = jsonResult.getJSONObject("dosen").getString("glr_blk");
+                            extras.putString("glrBlk", mGlrBlk);
+
+                            String mNik = jsonResult.getJSONObject("dosen").getString("nik");
                             extras.putString("nik", mNik);
+
+                            String mFileNik = jsonResult.getJSONObject("dosen").getString("file_nik");
+                            extras.putString("fileNik", mFileNik);
+
+                            String mNpwp = jsonResult.getJSONObject("dosen").getString("npwp");
                             extras.putString("npwp", mNpwp);
-                            extras.putString("alamat_skr", mAlamatSkr);
-                            extras.putString("telp_rumah", mTelpRumah);
-                            extras.putString("no_hp1", mNoHp1);
+
+                            String mFileNpwp = jsonResult.getJSONObject("dosen").getString("file_npwp");
+                            extras.putString("fileNpwp", mFileNpwp);
+
+                            String mAlamatSkr = jsonResult.getJSONObject("dosen").getString("alamat_skr");
+                            extras.putString("alamatSkr", mAlamatSkr);
+
+                            String mTelpRumah = jsonResult.getJSONObject("dosen").getString("telp_rumah");
+                            extras.putString("telpRumah", mTelpRumah);
+
+                            String mNoHp1 = jsonResult.getJSONObject("dosen").getString("no_hp1");
+                            extras.putString("noHp1", mNoHp1);
+
+                            String mEmail1 = jsonResult.getJSONObject("dosen").getString("email1");
                             extras.putString("email1", mEmail1);
-                            extras.putString("tempat_lahir", mTempatLahir);
-                            extras.putString("tgl_lahir", mTglLahir);
-                            extras.putString("kode_sex", mKodeSex);
-                            extras.putString("kode_status_keluar", mKodeStatusKeluar);
-                            extras.putString("kode_status_pegawai", mKodeStatusPegawai);
-                            extras.putString("nidn", nNidn);
-                            extras.putString("alamat_ktp", mAlamatKtp);
+
+                            String mTempatlahir = jsonResult.getJSONObject("dosen").getString("tempat_lahir");
+                            extras.putString("tempatLahir", mTempatlahir);
+
+                            String mTglLahir = jsonResult.getJSONObject("dosen").getString("tgl_lahir");
+                            extras.putString("tglLahir", mTglLahir);
+
+                            String mKodeSex = jsonResult.getJSONObject("dosen").getString("jenis_kelamin");
+                            extras.putString("kodeSex", mKodeSex);
+
+                            String mKodeStatusKeluar = jsonResult.getJSONObject("dosen").getString("status_keluar");
+                            extras.putString("kodeStatusKeluar", mKodeStatusKeluar);
+
+                            String mKodestatusPgw = jsonResult.getJSONObject("dosen").getString("status_pegawai");
+                            extras.putString("kodeStatusPegawai", mKodestatusPgw);
+
+                            String mNidn = jsonResult.getJSONObject("dosen").getString("nidn");
+                            extras.putString("nidn", mNidn);
+
+                            String mAlamatKtp = jsonResult.getJSONObject("dosen").getString("alamat_ktp");
+                            extras.putString("alamatKtp", mAlamatKtp);
+
+                            String mEmail2 = jsonResult.getJSONObject("dosen").getString("email2");
                             extras.putString("email2", mEmail2);
-                            extras.putString("no_hp2", mNoHp2);
+
+                            String mNoHp2 = jsonResult.getJSONObject("dosen").getString("no_hp2");
+                            extras.putString("noHp2", mNoHp2);
 
                             intent.putExtras(extras);
-
                             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                            finish();
-                        } else {
-                            // jika login gagal
-                            String error_msg = jsonResults.getString("error_msg");
+                            //finish();
+                        }else{
+                            String error_msg = jsonResult.getString("error_msg");
                             Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
                         }
-                    } catch (JSONException | IOException e) {
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }catch(IOException e){
                         e.printStackTrace();
                     }
                 }
@@ -178,7 +207,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("debug", "onFailure: ERROR > " + t.toString());
+                Log.e("debug", "onFailure: ERROR > "+t.toString());
                 loading.dismiss();
             }
         });

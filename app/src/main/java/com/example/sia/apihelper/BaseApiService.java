@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface BaseApiService {
 
@@ -14,6 +15,7 @@ public interface BaseApiService {
     Call<ResponseBody> loginRequest(@Field("user") String user,
                                     @Field("password") String password);
 
+
     // Fungsi untuk memanggil API http://localhost/sia/UbahPassword.php
     @FormUrlEncoded
     @POST("UbahPassword.php")
@@ -22,15 +24,30 @@ public interface BaseApiService {
                                        @Field("passwordbaru") String passwordbaru,
                                        @Field("konfpassword") String konfpassword);
 
-    // Fungsi untuk memanggil API http://localhost/sia/Biodata.php
+    // Fungsi untuk memanggil API http://localhost/sia/TampilBiodata.php
     @FormUrlEncoded
-    @POST("Biodata.php")
-    Call<ResponseBody> biodataRequest(@Field("kode_pegawai") String kode_pegawai);
+    @POST("TampilBiodata.php")
+    Call<ResponseBody> tampilBiodataRequest(@Field("kode_pegawai") String kode_pegawai);
+
+    // Fungsi untuk memanggil API http://localhost/sia/TampilJenisKelamin.php
+    @FormUrlEncoded
+    @POST("TampilJenisKelamin.php")
+    Call<ResponseBody> tampilJenisKelaminRequest(@Field("kodeSex") String kodeSex);
+
+    // Fungsi untuk memanggil API http://localhost/sia/TampilStatusKeluar.php
+    @FormUrlEncoded
+    @POST("TampilStatusKeluar.php")
+    Call<ResponseBody> tampilStatusKeluarRequest(@Field("kodeStatusKeluar") String kodeStatusKeluar);
+
+    // Fungsi untuk memanggil API http://localhost/sia/TampilStatusPegawai.php
+    @FormUrlEncoded
+    @POST("TampilStatusPegawai.php")
+    Call<ResponseBody> tampilStatusPegawaiRequest(@Field("kodeStatusPegawai") String kodeStatusPegawai);
 
     // Fungsi untuk memanggil API http://localhost/sia/UbahBiodata.php
     @FormUrlEncoded
     @POST("UbahBiodata.php")
-    Call<ResponseBody> ubahbiodataRequest(@Field("kode_pegawai") String kode_pegawai,
+    Call<ResponseBody> ubahBiodataRequest(@Field("kode_pegawai") String kode_pegawai,
                                           @Field("glr_dpn") String glr_dpn,
                                           @Field("glr_blk") String glr_blk,
                                           @Field("nik") String nik,
@@ -47,9 +64,4 @@ public interface BaseApiService {
                                           @Field("alamat_ktp") String alamat_ktp,
                                           @Field("email2") String email2,
                                           @Field("no_hp2") String no_hp2);
-
-    // Fungsi untuk memanggil API http://localhost/sia/UbahBiodata.php
-    //@FormUrlEncoded
-    //@POST("UbahBiodata.php")
-    //Call<ResponseBody> UbahBioRequest()
 }

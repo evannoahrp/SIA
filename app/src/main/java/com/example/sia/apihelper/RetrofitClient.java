@@ -5,18 +5,18 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-class RetrofitClient {
+public class RetrofitClient {
 
     private static Retrofit retrofit = null;
 
-    static Retrofit getClient(){
+    public static Retrofit getClient(String baseUrl){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         if (retrofit == null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl(UtilsApi.BASE_URL_API)
+                    .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

@@ -20,15 +20,14 @@
             android:layout_height="43dp"
             android:text="@string/kode_pegawai" />
 
-        <TextView
+        <EditText
             android:id="@+id/textKodePegawai"
             android:layout_width="253dp"
             android:layout_height="43dp"
-            android:layout_marginStart="13dp"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/KodePegawai"
             android:ems="10"
-            android:hint="@string/kode_pegawai"
-            android:textSize="18sp"
+            android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/KodePegawai"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/KodePegawai"
@@ -42,17 +41,16 @@
             android:layout_marginTop="12dp"
             android:text="@string/nama_pegawai" />
 
-        <TextView
+        <EditText
             android:id="@+id/textNamaPegawai"
             android:layout_width="253dp"
             android:layout_height="43dp"
             android:layout_below="@id/textKodePegawai"
-            android:layout_marginStart="13dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/namaPegawai"
             android:ems="10"
-            android:hint="@string/nama_pegawai"
-            android:textSize="18sp"
+            android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/namaPegawai"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/namaPegawai"
@@ -330,32 +328,19 @@
             android:layout_marginTop="10dp"
             android:text="@string/tanggal_lahir" />
 
-        <TextView
+        <EditText
             android:id="@+id/textTanggalLahir"
-            android:layout_width="100dp"
+            android:layout_width="253dp"
             android:layout_height="43dp"
             android:layout_below="@id/textTempatLahir"
-            android:layout_marginStart="13dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/tanggalLahir"
             android:ems="10"
-            android:hint="@string/tanggal_lahir"
-            android:textSize="18sp"
+            android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/tanggalLahir"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/tanggalLahir"
-            tools:ignore="RtlHardcoded" />
-
-        <Button
-            android:id="@+id/button_tgl"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textTempatLahir"
-            android:layout_toEndOf="@+id/textTanggalLahir"
-            app:layout_constraintStart_toEndOf="@+id/textTanggalLahir"
-            android:layout_toRightOf="@+id/textTanggalLahir"
-            tools:ignore="RtlHardcoded" />
-
+            android:layout_toRightOf="@+id/tanggalLahir" />
         <TextView
             android:id="@+id/jenisKelamin"
             android:layout_width="105dp"
@@ -364,21 +349,21 @@
             android:layout_marginTop="10dp"
             android:text="@string/jenis_kelamin" />
 
-        <TextView
+        <EditText
             android:id="@+id/textJenisKelamin"
             android:layout_width="253dp"
             android:layout_height="43dp"
             android:layout_below="@id/textTanggalLahir"
-            android:layout_marginStart="13dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/jenisKelamin"
             android:ems="10"
-            android:hint="@string/jenis_kelamin"
-            android:textSize="18sp"
+            android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/jenisKelamin"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/jenisKelamin"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="LabelFor,RtlHardcoded"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/statusKeluar"
@@ -525,7 +510,7 @@
             android:importantForAutofill="no" />
 
         <Button
-            android:id="@+id/button_ubah"
+            android:id="@+id/tombol_ubah"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textNoHp2"

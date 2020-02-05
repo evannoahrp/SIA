@@ -28,18 +28,16 @@ import retrofit2.Response;
 
 public class UbahPassword extends AppCompatActivity {
 
-    TextView txtUser;
-
     EditText txtPassLama, txtPassBaru, txtKonfirmasiPass;
-
+    TextView txtUser;
     Button btnUbahPass;
 
     SharedPrefManager sharedPrefManager;
 
+    String mUser;
+
     Context mContext;
-
     ProgressDialog loading;
-
     BaseApiService mApiService;
 
     @Override
@@ -47,14 +45,15 @@ public class UbahPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_password);
 
-        txtUser = findViewById(R.id.txtUser);
-        txtPassLama = findViewById(R.id.txtPassLama);
-        txtPassBaru = findViewById(R.id.txtPassBaru);
-        txtKonfirmasiPass = findViewById(R.id.txtKonfirmasiPass);
-        btnUbahPass = findViewById(R.id.btnUbahPass);
+        txtUser = (TextView)findViewById(R.id.txtUser);
+        txtPassLama = (EditText) findViewById(R.id.txtPassLama);
+        txtPassBaru = (EditText) findViewById(R.id.txtPassBaru);
+        txtKonfirmasiPass = (EditText) findViewById(R.id.txtKonfirmasiPass);
+        btnUbahPass = (Button) findViewById(R.id.btnUbahPass);
 
         sharedPrefManager = new SharedPrefManager(this);
-        txtUser.setText(sharedPrefManager.getSPUser());
+        mUser = sharedPrefManager.getSpUser();
+        txtUser.setText(mUser);
 
         mContext = this;
         mApiService = UtilsApi.getAPIService();
@@ -69,19 +68,18 @@ public class UbahPassword extends AppCompatActivity {
     }
 
     private void ubahPassword() {
-        mApiService.ubahPassRequest(txtUser.getText().toString(), txtPassLama.getText().toString(), txtPassBaru.getText().toString(),
+        mApiService.ubahPassRequest(mUser, txtPassLama.getText().toString(), txtPassBaru.getText().toString(),
                 txtKonfirmasiPass.getText().toString()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     loading.dismiss();
                     try {
-                        assert response.body() != null;
                         JSONObject jsonResults = new JSONObject(response.body().string());
                         if (jsonResults.getString("error").equals("false")) {
 
-                            String message = jsonResults.getString("message");
-                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                            String pesan = jsonResults.getString("message");
+                            Toast.makeText(mContext, pesan, Toast.LENGTH_SHORT).show();
 
                             startActivity(new Intent(mContext, Home.class)
                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -91,7 +89,9 @@ public class UbahPassword extends AppCompatActivity {
                             String error_msg = jsonResults.getString("error_msg");
                             Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
                         }
-                    } catch (JSONException | IOException e) {
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

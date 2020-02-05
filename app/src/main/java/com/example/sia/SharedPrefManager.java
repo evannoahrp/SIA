@@ -1,48 +1,47 @@
 package com.example.sia;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 class SharedPrefManager {
 
-    private static final String SP_DOSEN_APP = "spDosenApp";
+    public static final String SP_DOSEN_APP = "spDosenApp";
 
-    static final String SP_KODE = "spKode";
+    public static final String SP_KODE = "spKode";
+    public static final String SP_USER = "spUser";
 
-    static final String SP_USER = "spUser";
+    public static final String SP_SUDAH_LOGIN = "spSudahLogin";
 
-    private static final String SP_SUDAH_LOGIN = "spSudahLogin";
+    SharedPreferences sp;
+    SharedPreferences.Editor spEditor;
 
-    private SharedPreferences sp;
-
-    private SharedPreferences.Editor spEditor;
-
-    @SuppressLint("CommitPrefEdits")
-    SharedPrefManager(Context context){
+    public SharedPrefManager(Context context){
         sp = context.getSharedPreferences(SP_DOSEN_APP, Context.MODE_PRIVATE);
         spEditor = sp.edit();
     }
 
-    void saveSPString(String keySP, String value){
+    public void saveSPString(String keySP, String value){
         spEditor.putString(keySP, value);
         spEditor.commit();
     }
 
-    void saveSPBoolean(boolean value){
-        spEditor.putBoolean(SharedPrefManager.SP_SUDAH_LOGIN, value);
+    public void saveSPInt(String keySP, int value){
+        spEditor.putInt(keySP, value);
         spEditor.commit();
     }
 
-    String getSPKode(){
+    public void saveSPBoolean(String keySP, boolean value){
+        spEditor.putBoolean(keySP, value);
+        spEditor.commit();
+    }
+
+    public String getSPKode(){
         return sp.getString(SP_KODE, "");
     }
 
-    String getSPUser(){
-        return sp.getString(SP_USER, "");
-    }
+    public String getSpUser() {return sp.getString(SP_USER, "");}
 
-    Boolean getSPSudahLogin(){
+    public Boolean getSPSudahLogin(){
         return sp.getBoolean(SP_SUDAH_LOGIN, false);
     }
 
