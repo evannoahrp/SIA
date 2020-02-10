@@ -158,43 +158,6 @@ public class BiodataDosen extends AppCompatActivity {
 
     private void ubahBiodata(){
 
-        String sKeluar = "", sPegawai = "";
-
-        if (textStatusKeluar.getText().toString().equals("Aktif")){
-            sKeluar = "1";
-        }else if (textStatusKeluar.getText().toString().equals("Mengundurkan Diri")){
-            sKeluar = "2";
-        }else if (textStatusKeluar.getText().toString().equals("Diberhentikan")){
-            sKeluar = "3";
-        }else if (textStatusKeluar.getText().toString().equals("Pensiun")){
-            sKeluar = "4";
-        }else if (textStatusKeluar.getText().toString().equals("Bebas Tugas")){
-            sKeluar = "5";
-        }else if (textStatusKeluar.getText().toString().equals("Alih Fungsi")){
-            sKeluar = "6";
-        }else if (textStatusKeluar.getText().toString().equals("Diperbantukan")){
-            sKeluar = "7";
-        }else if (textStatusKeluar.getText().toString().equals("Meninggal Dunia")){
-            sKeluar = "8";
-        }else if (textStatusKeluar.getText().toString().equals("Alih Tugas ke PMSD")){
-            sKeluar = "9";
-        }else if (textStatusKeluar.getText().toString().equals("Habis Kontrak")){
-            sKeluar = "10";
-        }
-
-        if (textStatusPegawai.getText().toString().equals("Tetap")){
-            sPegawai = "1";
-        }else if (textStatusPegawai.getText().toString().equals("Calon")){
-            sPegawai = "2";
-        }else if (textStatusPegawai.getText().toString().equals("Kontrak")){
-            sPegawai = "3";
-        }else if (textStatusPegawai.getText().toString().equals("Luar Biasa")){
-            sPegawai = "4";
-        }else if (textStatusPegawai.getText().toString().equals("Honorer")){
-            sPegawai = "5";
-        }else if (textStatusPegawai.getText().toString().equals("Harian")){
-            sPegawai = "6";
-        }
 
         mApiService.updateBiodataRequest(textKodePegawai.getText().toString(),
                 textGelarDepan.getText().toString(), textGelarBelakang.getText().toString(),
@@ -202,7 +165,7 @@ public class BiodataDosen extends AppCompatActivity {
                 textAlamatSkr.getText().toString(), textTelpRumah.getText().toString(),
                 textNoHp1.getText().toString(), textEmail1.getText().toString(),
                 textTempatLahir.getText().toString(), textTanggalLahir.getText().toString(),
-                sKeluar, sPegawai, textNidn.getText().toString(), textAlamatKtp.getText().toString(),
+                textStatusKeluar.getText().toString(), textStatusPegawai.getText().toString(), textNidn.getText().toString(), textAlamatKtp.getText().toString(),
                 textEmail2.getText().toString(), textNoHp2.getText().toString()
         ).enqueue(new Callback<ResponseBody>() {
             @Override

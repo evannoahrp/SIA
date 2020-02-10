@@ -44,21 +44,6 @@ public interface BaseApiService {
     @POST("TampilStatusPegawai.php")
     Call<ResponseBody> tampilStatusPegawaiRequest(@Field("kode_pegawai") String kode_pegawai);
 
-    // Fungsi untuk memanggil API http://localhost/sia/TampilJenisKelaminToNum.php
-    @FormUrlEncoded
-    @POST("TampilJenisKelaminToNum.php")
-    Call<ResponseBody> tampilJenisKelaminToNumRequest(@Field("nama_sex") String nama_sex);
-
-    // Fungsi untuk memanggil API http://localhost/sia/TampilStatusKeluarToNum.php
-    @FormUrlEncoded
-    @POST("TampilStatusKeluarToNum.php")
-    Call<ResponseBody> tampilStatusKeluarToNumRequest(@Field("nama_status_keluar") String nama_status_keluar);
-
-    // Fungsi untuk memanggil API http://localhost/sia/TampilStatusPegawaiToNum.php
-    @FormUrlEncoded
-    @POST("TampilStatusPegawaiToNum.php")
-    Call<ResponseBody> tampilStatusPegawaiToNumRequest(@Field("nama_stats_pegawai") String nama_stats_pegawai);
-
     // Fungsi untuk memanggil API http://localhost/sia/UpdateBiodata.php
     @FormUrlEncoded
     @POST("UpdateBiodata.php")
