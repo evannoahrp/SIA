@@ -373,7 +373,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/status_keluar" />
 
-        <EditText
+        <Spinner
             android:id="@+id/textStatusKeluar"
             android:layout_width="253dp"
             android:layout_height="43dp"
