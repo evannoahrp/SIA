@@ -28,7 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Home extends AppCompatActivity implements View.OnClickListener {
-
     TextView tvResultKode, tvResultUser;
 
     Button btnLogout, btnBiodata, btnUbahPassword;
@@ -61,12 +60,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         btnBiodata.setOnClickListener(this);
         btnUbahPassword.setOnClickListener(this);
 
-        /*btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                konfirmasiLogout();
-            }
-        });*/
     }
 
     @Override
@@ -74,8 +67,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         if (v == btnBiodata) {
             loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
             requestTampilBiodata();
-            //Intent intent = new Intent(this, BiodataDosen.class);
-            //startActivity(intent);
         }
         if (v == btnLogout) {
             konfirmasiLogout();
@@ -113,16 +104,15 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         alertDialog.show();
     }
 
-    private void requestTampilBiodata() {
+    private void requestTampilBiodata(){
         mApiService.tampilBiodataRequest(sharedPrefManager.getSPKode()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()){
                     loading.dismiss();
                     try {
-                        assert response.body() != null;
                         JSONObject jsonResult = new JSONObject(response.body().string());
-                        if (jsonResult.getString("error").equals("false")) {
+                        if (jsonResult.getString("error").equals("false")){
 
                             Intent intent = new Intent(mContext, BiodataDosen.class);
                             Bundle extras = new Bundle();
@@ -169,14 +159,14 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                             String mTglLahir = jsonResult.getJSONObject("dosen").getString("tgl_lahir");
                             extras.putString("tglLahir", mTglLahir);
 
-                            String mKodeSex = jsonResult.getJSONObject("dosen").getString("jenis_kelamin");
-                            extras.putString("kodeSex", mKodeSex);
+                            String mJenisKelamin = jsonResult.getJSONObject("dosen").getString("jenis_kelamin");
+                            extras.putString("jenisKelamin", mJenisKelamin);
 
-                            String mKodeStatusKeluar = jsonResult.getJSONObject("dosen").getString("status_keluar");
-                            extras.putString("kodeStatusKeluar", mKodeStatusKeluar);
+                            String mStatusKeluar = jsonResult.getJSONObject("dosen").getString("status_keluar");
+                            extras.putString("statusKeluar", mStatusKeluar);
 
-                            String mKodestatusPgw = jsonResult.getJSONObject("dosen").getString("status_pegawai");
-                            extras.putString("kodeStatusPegawai", mKodestatusPgw);
+                            String mStatusPgw = jsonResult.getJSONObject("dosen").getString("status_pegawai");
+                            extras.putString("statusPegawai", mStatusPgw);
 
                             String mNidn = jsonResult.getJSONObject("dosen").getString("nidn");
                             extras.putString("nidn", mNidn);
@@ -189,6 +179,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
                             String mNoHp2 = jsonResult.getJSONObject("dosen").getString("no_hp2");
                             extras.putString("noHp2", mNoHp2);
+
+                            String pesan = jsonResult.getString("message");
+                            Toast.makeText(mContext, pesan, Toast.LENGTH_SHORT).show();
 
                             intent.putExtras(extras);
                             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));

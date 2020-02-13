@@ -26,7 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
-
     EditText txtUser;
     EditText txtPassword;
     Button btnLogin;
@@ -91,9 +90,6 @@ public class Login extends AppCompatActivity {
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                                     finish();
 
-                                    //Intent intent = new Intent(mContext, MainActivity.class);
-                                    //intent.putExtra("result_nim", mNim);
-                                    //startActivity(intent);
                                 } else {
                                     // jika login gagal
                                     String error_msg = jsonResults.getString("error_msg");

@@ -42,8 +42,8 @@ public class BiodataDosen extends AppCompatActivity {
             textNoHp1, textEmail1, textTempatLahir, textTanggalLahir, textJenisKelamin,
             textNidn, textAlamatKtp, textEmail2, textNoHp2;
 
-    String mKode, kodeStatus, kodePegawai;
-    Spinner textStatusKeluar, textStatusPegawai;
+    String mKode, statusKeluar, statusPegawai;
+    Spinner textStatusPegawai, textStatusKeluar;
 
     DatePickerDialog picker;
     Button tombol_ubah;
@@ -64,30 +64,30 @@ public class BiodataDosen extends AppCompatActivity {
 
         textKodePegawai = (EditText)findViewById(R.id.textKodePegawai);
         textNamaPegawai = (EditText)findViewById(R.id.textNamaPegawai);
-        textGelarDepan= (EditText)findViewById(R.id.textGelarDepan);
-        textGelarBelakang= (EditText)findViewById(R.id.textGelarBelakang);
-        textNik= (EditText)findViewById(R.id.textNik);
-        textFileNik= (EditText)findViewById(R.id.textFileNik);
-        textNpwp= (EditText)findViewById(R.id.textNpwp);
-        textFileNpwp= (EditText)findViewById(R.id.textFileNpwp);
-        textAlamatSkr= (EditText)findViewById(R.id.textAlamatSkr);
-        textTelpRumah= (EditText)findViewById(R.id.textTelpRumah);
-        textNoHp1= (EditText)findViewById(R.id.textNoHp1);
-        textEmail1= (EditText)findViewById(R.id.textEmail1);
-        textTempatLahir= (EditText)findViewById(R.id.textTempatLahir);
-        textTanggalLahir= (EditText)findViewById(R.id.textTanggalLahir);
-        textJenisKelamin= (EditText)findViewById(R.id.textJenisKelamin);
-        textStatusKeluar= (Spinner)findViewById(R.id.textStatusKeluar);
-        textStatusPegawai= (Spinner)findViewById(R.id.textStatusPegawai);
-        textNidn= (EditText)findViewById(R.id.textNidn);
-        textAlamatKtp= (EditText)findViewById(R.id.textAlamatKtp);
-        textEmail2= (EditText)findViewById(R.id.textEmail2);
-        textNoHp2= (EditText)findViewById(R.id.textNoHp2);
+        textGelarDepan = (EditText)findViewById(R.id.textGelarDepan);
+        textGelarBelakang = (EditText)findViewById(R.id.textGelarBelakang);
+        textNik = (EditText)findViewById(R.id.textNik);
+        textFileNik = (EditText)findViewById(R.id.textFileNik);
+        textNpwp = (EditText)findViewById(R.id.textNpwp);
+        textFileNpwp = (EditText)findViewById(R.id.textFileNpwp);
+        textAlamatSkr = (EditText)findViewById(R.id.textAlamatSkr);
+        textTelpRumah = (EditText)findViewById(R.id.textTelpRumah);
+        textNoHp1 = (EditText)findViewById(R.id.textNoHp1);
+        textEmail1 = (EditText)findViewById(R.id.textEmail1);
+        textTempatLahir = (EditText)findViewById(R.id.textTempatLahir);
+        textTanggalLahir = (EditText)findViewById(R.id.textTanggalLahir);
+        textJenisKelamin = (EditText)findViewById(R.id.textJenisKelamin);
+        textStatusKeluar = (Spinner) findViewById(R.id.textStatusKeluar);
+        textStatusPegawai = (Spinner) findViewById(R.id.textStatusPegawai);
+        textNidn = (EditText)findViewById(R.id.textNidn);
+        textAlamatKtp = (EditText)findViewById(R.id.textAlamatKtp);
+        textEmail2 = (EditText)findViewById(R.id.textEmail2);
+        textNoHp2 = (EditText)findViewById(R.id.textNoHp2);
         tombol_ubah = (Button)findViewById(R.id.tombol_ubah);
 
         sharedPrefManager = new SharedPrefManager(this);
         mKode = sharedPrefManager.getSPKode();
-        textKodePegawai.setText(sharedPrefManager.getSPKode());
+        textKodePegawai.setText(mKode);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -139,11 +139,14 @@ public class BiodataDosen extends AppCompatActivity {
             }
         });
 
-        ambilJenisKelamin(textJenisKelamin, mKodePgw);
-        ambilStatusKeluar(mKodePgw);
-        initSpinnerStatus1();
-        ambilStatusPegawai(mKodePgw);
-        initSpinnerStatus2();
+        String mJenisKelamin = extras.getString("jenisKelamin");
+        textJenisKelamin.setText(mJenisKelamin);
+        String mStatusKeluar = extras.getString("statusKeluar");
+        statusKeluar = mStatusKeluar;
+        initSpinnerStatusKeluar();
+        String mStatusPegawai = extras.getString("statusPegawai");
+        statusPegawai = mStatusPegawai;
+        initSpinnerStatusPegawai();
         String mNidn = extras.getString("nidn");
         textNidn.setText(mNidn);
         String mAlamatKtp = extras.getString("alamatKtp");
@@ -156,8 +159,19 @@ public class BiodataDosen extends AppCompatActivity {
         textStatusKeluar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(mContext, "Kamu memilih status " + selectedName, Toast.LENGTH_SHORT).show();
+                parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        textStatusPegawai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -175,8 +189,8 @@ public class BiodataDosen extends AppCompatActivity {
         });
     }
 
-    private void initSpinnerStatus1(){
-        loading = ProgressDialog.show(mContext, null, "LOL", true, false);
+    private void initSpinnerStatusKeluar(){
+        loading = ProgressDialog.show(mContext, null, "harap tunggu...", true, false);
 
         mApiService.getAllStatusKeluar().enqueue(new Callback<ResponseBody>() {
             @Override
@@ -194,7 +208,7 @@ public class BiodataDosen extends AppCompatActivity {
                             str.add(status);
                         }
 
-                        String compareValue = kodeStatus;
+                        String compareValue = statusKeluar;
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
                                 android.R.layout.simple_spinner_item, str);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -222,7 +236,8 @@ public class BiodataDosen extends AppCompatActivity {
         });
     }
 
-    private void initSpinnerStatus2(){
+    private void initSpinnerStatusPegawai(){
+
         mApiService.getAllStatusPegawai().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -239,7 +254,7 @@ public class BiodataDosen extends AppCompatActivity {
                             str.add(status);
                         }
 
-                        String compareValue = kodePegawai;
+                        String compareValue = statusPegawai;
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
                                 android.R.layout.simple_spinner_item, str);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -269,14 +284,14 @@ public class BiodataDosen extends AppCompatActivity {
 
     private void ubahBiodata(){
 
-
         mApiService.updateBiodataRequest(textKodePegawai.getText().toString(),
                 textGelarDepan.getText().toString(), textGelarBelakang.getText().toString(),
                 textNik.getText().toString(), textNpwp.getText().toString(),
                 textAlamatSkr.getText().toString(), textTelpRumah.getText().toString(),
                 textNoHp1.getText().toString(), textEmail1.getText().toString(),
                 textTempatLahir.getText().toString(), textTanggalLahir.getText().toString(),
-                textStatusKeluar.getSelectedItem().toString(), textStatusPegawai.getSelectedItem().toString(), textNidn.getText().toString(), textAlamatKtp.getText().toString(),
+                textStatusKeluar.getSelectedItem().toString(), textStatusPegawai.getSelectedItem().toString(),
+                textNidn.getText().toString(), textAlamatKtp.getText().toString(),
                 textEmail2.getText().toString(), textNoHp2.getText().toString()
         ).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -320,89 +335,5 @@ public class BiodataDosen extends AppCompatActivity {
         tanggal[1] = Integer.parseInt(st.nextToken());
         tanggal[2] = Integer.parseInt(st.nextToken());
         return tanggal;
-    }
-
-    private void ambilJenisKelamin(final EditText editText, String kodePegawai) {
-        mApiService.tampilJenisKelaminRequest(kodePegawai).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject jsonResults = new JSONObject(response.body().string());
-                        if (jsonResults.getString("error").equals("false")) {
-                            editText.setText(jsonResults.getString("jenis_kelamin"));
-                        } else {
-                            // jika gagal
-                            String error_msg = jsonResults.getString("error_msg");
-                            Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> mCall, Throwable mThrowable) {
-                Log.e("debug", "onFailure: ERROR > " + mThrowable.toString());
-            }
-        });
-    }
-
-    private void ambilStatusKeluar(String kodePgw) {
-        mApiService.tampilStatusKeluarRequest(kodePgw).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject jsonResults = new JSONObject(response.body().string());
-                        if (jsonResults.getString("error").equals("false")) {
-                            kodeStatus = jsonResults.getString("status_keluar");
-                        } else {
-                            // jika gagal
-                            String error_msg = jsonResults.getString("error_msg");
-                            Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> mCall, Throwable mThrowable) {
-                Log.e("debug", "onFailure: ERROR > " + mThrowable.toString());
-            }
-        });
-    }
-
-    private void ambilStatusPegawai(String kodePgw) {
-        mApiService.tampilStatusPegawaiRequest(kodePgw).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject jsonResults = new JSONObject(response.body().string());
-                        if (jsonResults.getString("error").equals("false")) {
-                            kodePegawai = jsonResults.getString("status_pegawai");
-                        } else {
-                            // jika gagal
-                            String error_msg = jsonResults.getString("error_msg");
-                            Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> mCall, Throwable mThrowable) {
-                Log.e("debug", "onFailure: ERROR > " + mThrowable.toString());
-            }
-        });
     }
 }

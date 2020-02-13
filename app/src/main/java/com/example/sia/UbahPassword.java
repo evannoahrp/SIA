@@ -45,11 +45,11 @@ public class UbahPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_password);
 
-        txtUser = (TextView)findViewById(R.id.txtUser);
-        txtPassLama = (EditText) findViewById(R.id.txtPassLama);
-        txtPassBaru = (EditText) findViewById(R.id.txtPassBaru);
-        txtKonfirmasiPass = (EditText) findViewById(R.id.txtKonfirmasiPass);
-        btnUbahPass = (Button) findViewById(R.id.btnUbahPass);
+        txtUser = findViewById(R.id.txtUser);
+        txtPassLama = findViewById(R.id.txtPassLama);
+        txtPassBaru = findViewById(R.id.txtPassBaru);
+        txtKonfirmasiPass = findViewById(R.id.txtKonfirmasiPass);
+        btnUbahPass = findViewById(R.id.btnUbahPass);
 
         sharedPrefManager = new SharedPrefManager(this);
         mUser = sharedPrefManager.getSpUser();
@@ -89,9 +89,7 @@ public class UbahPassword extends AppCompatActivity {
                             String error_msg = jsonResults.getString("error_msg");
                             Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
                 }
