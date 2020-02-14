@@ -7,15 +7,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sia.apihelper.BaseApiService;
 import com.example.sia.apihelper.UtilsApi;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,12 +31,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Home extends AppCompatActivity implements View.OnClickListener {
-    TextView tvResultKode, tvResultUser;
 
-    Button btnLogout, btnBiodata, btnUbahPassword;
+    Button btnBiodata, btnUbahPassword;
 
     Context mContext;
     BaseApiService mApiService;
+    BottomNavigationView btnNavigation;
 
     SharedPrefManager sharedPrefManager;
     ProgressDialog loading;
@@ -43,22 +46,55 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        tvResultKode = (TextView) findViewById(R.id.tvResultKode);
-        tvResultUser = (TextView) findViewById(R.id.tvResultUser);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
         btnBiodata = (Button) findViewById(R.id.btnBiodata);
         btnUbahPassword = (Button) findViewById(R.id.btnUbahPassword);
 
         sharedPrefManager = new SharedPrefManager(this);
-        tvResultKode.setText(sharedPrefManager.getSPKode());
-        tvResultUser.setText(sharedPrefManager.getSpUser());
+        btnNavigation = findViewById(R.id.btnNavigation);
 
         mContext = this;
         mApiService = UtilsApi.getAPIService();
 
-        btnLogout.setOnClickListener(this);
         btnBiodata.setOnClickListener(this);
         btnUbahPassword.setOnClickListener(this);
+
+        btnNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_biodata:
+                        //setFragment(profileFragment);
+                        startActivity(new Intent(getApplicationContext(), Home.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.nav_daftar:
+                        //  setFragment(assigmentFragment);
+                        startActivity(new Intent(getApplicationContext(), Daftar.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+
+                    case R.id.nav_setting:
+                        //setFragment(settingsFragment);
+                        startActivity(new Intent(getApplicationContext(), Setting.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+
+                    case R.id.nav_logout:
+                        konfirmasiLogout();
+                        return true;
+
+                }// default:
+                return false;
+            }
+
+
+
+            //private void setFragment(Fragment fragment) {
+            //  FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            // fragmentTransaction.replace(R.id.main_frame,fragment);
+            // fragmentTransaction.commit();
+            // }
+        });
 
     }
 
@@ -67,9 +103,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         if (v == btnBiodata) {
             loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
             requestTampilBiodata();
-        }
-        if (v == btnLogout) {
-            konfirmasiLogout();
         }
         if (v == btnUbahPassword) {
             Intent intent = new Intent(this, UbahPassword.class);

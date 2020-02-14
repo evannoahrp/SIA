@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_biodata"
+        android:icon="@drawable/profile"
+        android:title="Home"
+        android:visible="true" />
+    <item
+        android:id="@+id/nav_daftar"
+        android:icon="@drawable/assignment"
+        android:title="Daftar"
+        android:visible="true" />
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/settings"
+        android:title="@string/nav_setting"
+        android:visible="true" />
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/logout"
+        android:title="@string/nav_logout"
+        android:visible="true" />
+</menu>

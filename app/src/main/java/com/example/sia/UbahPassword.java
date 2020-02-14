@@ -45,11 +45,11 @@ public class UbahPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubah_password);
 
-        txtUser = findViewById(R.id.txtUser);
-        txtPassLama = findViewById(R.id.txtPassLama);
-        txtPassBaru = findViewById(R.id.txtPassBaru);
-        txtKonfirmasiPass = findViewById(R.id.txtKonfirmasiPass);
-        btnUbahPass = findViewById(R.id.btnUbahPass);
+        txtUser = (TextView)findViewById(R.id.txtUser);
+        txtPassLama = (EditText) findViewById(R.id.txtPassLama);
+        txtPassBaru = (EditText) findViewById(R.id.txtPassBaru);
+        txtKonfirmasiPass = (EditText) findViewById(R.id.txtKonfirmasiPass);
+        btnUbahPass = (Button) findViewById(R.id.btnUbahPass);
 
         sharedPrefManager = new SharedPrefManager(this);
         mUser = sharedPrefManager.getSpUser();
@@ -68,8 +68,31 @@ public class UbahPassword extends AppCompatActivity {
     }
 
     private void ubahPassword() {
-        mApiService.ubahPassRequest(mUser, txtPassLama.getText().toString(), txtPassBaru.getText().toString(),
-                txtKonfirmasiPass.getText().toString()).enqueue(new Callback<ResponseBody>() {
+        String passlama = txtPassLama.getText().toString();
+        String passBaru = txtPassBaru.getText().toString();
+        String konPass = txtKonfirmasiPass.getText().toString();
+        if(passlama.isEmpty() && passBaru.isEmpty() && konPass.isEmpty()){
+            txtPassLama.setError("Masukkan Password Lama");
+            txtPassBaru.setError("Masukkan Password Baru");
+            txtKonfirmasiPass.setError("Masukkan Konfirmasi Password");
+        }else if (!passlama.isEmpty() && passBaru.isEmpty() && konPass.isEmpty()){
+            txtPassBaru.setError("Masukkan Password Baru");
+            txtKonfirmasiPass.setError("Masukkan Konfirmasi Password");
+        }else if (passlama.isEmpty() && !passBaru.isEmpty() && konPass.isEmpty()){
+            txtPassLama.setError("Masukkan Password Lama");
+            txtKonfirmasiPass.setError("Masukkan Konfirmasi Password");
+        }else if (passlama.isEmpty() && passBaru.isEmpty() && !konPass.isEmpty()){
+            txtPassLama.setError("Masukkan Password Lama");
+            txtPassBaru.setError("Masukkan Password Baru");
+        }else if (!passlama.isEmpty() && !passBaru.isEmpty() && konPass.isEmpty()){
+            txtKonfirmasiPass.setError("Masukkan Konfirmasi Password");
+        }else if (!passlama.isEmpty() && passBaru.isEmpty() && !konPass.isEmpty()){
+            txtPassBaru.setError("Masukkan Password Baru");
+        }else if (passlama.isEmpty() && !passBaru.isEmpty() && !konPass.isEmpty()){
+            txtPassLama.setError("Masukkan Password Lama");
+        }
+        mApiService.ubahPassRequest(mUser, passlama, passBaru,
+                konPass).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -89,7 +112,9 @@ public class UbahPassword extends AppCompatActivity {
                             String error_msg = jsonResults.getString("error_msg");
                             Toast.makeText(mContext, error_msg, Toast.LENGTH_SHORT).show();
                         }
-                    } catch (JSONException | IOException e) {
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

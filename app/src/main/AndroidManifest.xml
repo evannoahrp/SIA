@@ -7,11 +7,16 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="a"
+        android:label="SIA"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UbahPassword"></activity>
+        <activity android:name=".BiodataDosen"/>
+        <activity android:name=".Welcome"/>
+        <activity android:name=".Daftar"/>
+        <activity android:name=".Setting"/>
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Home" />
-        <activity android:name=".BiodataDosen"/>
-        <activity android:name=".UbahPassword"/>
     </application>
 
 </manifest>
