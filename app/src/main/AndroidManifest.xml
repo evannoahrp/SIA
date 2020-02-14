@@ -17,7 +17,8 @@
         <activity android:name=".Welcome"/>
         <activity android:name=".Daftar"/>
         <activity android:name=".Setting"/>
-        <activity android:name=".Login">
+        <activity android:name=".Login"/>
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
