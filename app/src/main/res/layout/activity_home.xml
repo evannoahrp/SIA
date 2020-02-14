@@ -28,7 +28,7 @@
         <Button
             android:id="@+id/btnBiodata"
             android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:background="@drawable/bg_rectangle_button"
@@ -37,7 +37,7 @@
         <Button
             android:id="@+id/btnUbahPassword"
             android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:background="@drawable/bg_rectangle_button"
